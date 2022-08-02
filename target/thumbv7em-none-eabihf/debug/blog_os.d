@@ -1,0 +1,1 @@
+/Users/alexander/Desktop/Dokumente/Meine_Programme/Rust/os/phil_opp/blog_os/target/thumbv7em-none-eabihf/debug/blog_os: /Users/alexander/Desktop/Dokumente/Meine_Programme/Rust/os/phil_opp/blog_os/src/main.rs
