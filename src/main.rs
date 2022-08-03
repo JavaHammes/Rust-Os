@@ -1,19 +1,35 @@
 // cargo build --target thumbv7em-none-eabihf -> cross compile
 // target triple has no underlying operating system
 
-#![no_std]  // std depends on the os, so we have to disable it
-#![no_main]  // "main" doesn't make sense without an underlying runtime that calls it
+#![no_std]
+#![no_main]
+#![feature(custom_test_frameworks)]
+#![test_runner(blog_os::test_runner)]
+#![reexport_test_harness_main = "test_main"]
 
 use core::panic::PanicInfo;
+use blog_os::println;
 
-#[no_mangle]  // ensure that the Rust compiler outputs a function with the name _start ::
-              // otherwise -> _7Nwan_os4_start7kdgkusdg f. ex.
-pub extern "C" fn _start() -> ! {  //  overwrites the os entry point 
+#[no_mangle]
+pub extern "C" fn _start() -> ! {
+    println!("Hello World{}", "!");
+
+    #[cfg(test)]
+    test_main();
+
     loop {}
 }
 
-// this function is called on panic
+/// This function is called on panic.
+#[cfg(not(test))]
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {   // ! :: returns never
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
+}
+
+#[cfg(test)]
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+    blog_os::test_panic_handler(info)
 }

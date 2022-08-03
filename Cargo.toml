@@ -4,9 +4,29 @@ version = "0.1.0"
 edition = "2018"
 
 [profile.dev]  # Disables unwinding
-panic = "abort"
+#panic = "abort"
 
 [profile.release]
 panic = "abort"
 
 [dependencies]
+bootloader = "0.9.8"
+volatile = "0.2.6"  # the write has side effects and sould not be optimized away
+spin = "0.5.2"  # spinlock :: threads try to lock the CPU again and again to burn CPU time until the mutix is free again
+x86_64 = "0.14.2"  # needed for 'in' and 'out' abstractions
+uart_16550 = "0.2.0"  # initialize the UART to send data over the serial port
+
+[dependencies.lazy_static]
+version = "1.0"
+features = ["spin_no_std"]
+
+[package.metadata.bootimage]
+test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04", "-serial", "stdio", "-display", "none"]  # exit qemu from guest system for test cases
+								   		       # 0xf4 :: generally unused port on x86 IO bus
+								   		       # 0x04 :: specifies port size (four bytes)
+test-success-exit-code = 33  # (0x10 << 1) | 1
+test-timeout = 300  # (in seconds) :: if the test takes longer, it time outs
+
+[[test]]
+name = "should_panic"
+harness = false

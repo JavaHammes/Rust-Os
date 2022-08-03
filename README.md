@@ -1,4 +1,4 @@
-# Rust-Os
+# Rust-OS
 
 follows the tutorial on:
 <br>
