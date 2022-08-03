@@ -7,16 +7,13 @@
 #![reexport_test_harness_main = "test_main"]
 
 use core::panic::PanicInfo;
+use blog_os::println;
 
 #[no_mangle] // don't mangle the name of this function
 pub extern "C" fn _start() -> ! {
     test_main();
 
     loop {}
-}
-
-fn test_runner(tests: &[&dyn Fn()]) {
-    unimplemented!();
 }
 
 #[panic_handler]
