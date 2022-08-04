@@ -1,0 +1,10 @@
+preserved registers (callee-saved)
+	rbp, rbx, rsp, r12, r13, r14, r15
+
+scratch registers (caller-saved)
+	rax, rcx, rdx, rsi, rdi, r8, r9, r10, r11
+
+A called function is allowed to overwrite scratch registers without restrictions.
+The values of preserved registers must remain unchanged across function calls.
+Most functions begin with a "push rbp", which backups rbp on the stack.
+
