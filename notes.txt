@@ -8,3 +8,5 @@ A called function is allowed to overwrite scratch registers without restrictions
 The values of preserved registers must remain unchanged across function calls.
 Most functions begin with a "push rbp", which backups rbp on the stack.
 
+
+Timer / Keyboard / etc. -> Interrupt Controller -> CPU
