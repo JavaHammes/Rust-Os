@@ -10,3 +10,36 @@ Most functions begin with a "push rbp", which backups rbp on the stack.
 
 
 Timer / Keyboard / etc. -> Interrupt Controller -> CPU
+
+
+x86 hardware supports two different approaches to memory protection
+	1) segmentation
+	2) paging
+
+Virtual Memory:
+	offset (virtual address) -> translation function -> physical address
+
+(external) Fregmentation:
+	physical memory needs to be remapped so that virtual memory "has space" -> makes performance unpredictable
+	-> not supported in 64-bit mode on x86 
+
+Paging:
+	devide both the virtual and the physical memory space into small, fixed-size blocks (pages & frames).	
+	-> split larger memory regions across non-continous physical frames
+
+	(internal fragmentation) 150 Bytes in 101 Bytes memory -> 49 Bytes more
+		-> wastes memory, but doeas not require defragmentation and makes the amount of fragmentation predictable
+
+	mapping information is stored in "page tables"
+		- every program has its own page table
+		- page tables can also store attributes such as access permissions
+
+	multilevel page tables
+		-> save memory 
+
+	x86_64 uses a 4-level page table and a page size of 4KiB
+		- each page table has a fixed size of 512 entries
+			- each entry has a size of 8 bytes
+
+	"translation lookaside buffer" (TLB)
+		- caches the last few translations 
