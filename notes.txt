@@ -43,3 +43,18 @@ Paging:
 
 	"translation lookaside buffer" (TLB)
 		- caches the last few translations 
+
+Heap Allocation >> 
+	- local variables are stored on the call stack
+		- only live until the end of the surrounding function or block
+		- are destroyed after the surrounding function is destroyed
+	- static variables are stored at a fixed memory location separate from the stack
+		- live for the complete runtime of the program
+	- both have a fixed size
+
+	- the heap supports dynamic memory allocation at runtime
+		- allocate and dellocate
+		- continue to use a var after calling deallocate on it -> use-after-free vulnerability
+		- deallocate a var twice -> double-free vulnerability
+
+<<
