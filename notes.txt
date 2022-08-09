@@ -58,3 +58,14 @@ Heap Allocation >>
 		- deallocate a var twice -> double-free vulnerability
 
 <<
+
+Bump Allocator >>
+	- allocates memory linearly
+	- can only free all memory at once
+<<
+
+Fixed-Size Block Allocator >>
+	- better performance
+	- wasted memory due to internal fragmentation
+	- rounds up the requested allocation size to the next block size
+<<
